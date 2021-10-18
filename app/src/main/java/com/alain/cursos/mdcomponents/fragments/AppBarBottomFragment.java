@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alain.cursos.mdcomponents.R;
+import com.alain.cursos.mdcomponents.utils.BottomAppBarCutCornersTopEdge;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
@@ -80,6 +82,18 @@ public class AppBarBottomFragment extends DialogFragment {
                     .show();
         });
 
+        BottomAppBarCutCornersTopEdge topEdge = new BottomAppBarCutCornersTopEdge(
+                bottomAppBar.getFabCradleMargin(),
+                bottomAppBar.getFabCradleRoundedCornerRadius(),
+                bottomAppBar.getCradleVerticalOffset()
+        );
+
+        MaterialShapeDrawable shapeDrawable = (MaterialShapeDrawable)bottomAppBar.getBackground();
+        shapeDrawable.setShapeAppearanceModel(
+                shapeDrawable.getShapeAppearanceModel()
+                        .toBuilder()
+                        .setTopEdge(topEdge)
+                        .build());
         return view;
     }
 
