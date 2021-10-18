@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.alain.cursos.mdcomponents.R;
 import com.alain.cursos.mdcomponents.utils.Component;
@@ -61,6 +63,34 @@ public class AlertDialogFragment extends Fragment {
         new MaterialAlertDialogBuilder(getActivity())
                 .setTitle(R.string.card_message_demo_small)
                 .setPositiveButton(R.string.dialog_ok, null)
-        .show();
+                .show();
+    }
+
+    @OnClick(R.id.btnDialogChooser)
+    public void onChooserClicked() {
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.select_dialog_item);
+        adapter.add("Opción 1");
+        adapter.add("Opción 2");
+        adapter.add("Opción 3");
+
+        new MaterialAlertDialogBuilder(getActivity())
+                .setTitle(R.string.dialog_chooser)
+                .setAdapter(adapter, (dialogInterface, i) ->
+                        Toast.makeText(getActivity(), adapter.getItem(i), Toast.LENGTH_SHORT).show())
+                .show();
+    }
+
+    @OnClick(R.id.btnDialogConfirm)
+    public void onConfirmClicked() {
+        //new MaterialAlertDialogBuilder(getActivity())
+        //new MaterialAlertDialogBuilder(getActivity(), R.style.ThemeOverlay_MaterialComponents_Dialog)
+        new MaterialAlertDialogBuilder(getActivity(), R.style.MaterialAlertDialog_MaterialComponents_Title_Icon)
+                .setTitle(R.string.dialog_confirm_title)
+                .setMessage(R.string.card_message_demo_small)
+                .setPositiveButton(R.string.dialog_confirm, (dialogInterface, i) ->
+                        Toast.makeText(getActivity(), R.string.message_action_success, Toast.LENGTH_SHORT).show())
+                .setNegativeButton(R.string.dialog_cancel, null)
+                .show();
     }
 }
