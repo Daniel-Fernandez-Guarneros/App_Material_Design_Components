@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.alain.cursos.mdcomponents.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +54,31 @@ public class AppBarBottomFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_app_bar_bottom, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
+        bottomAppBar.setOnMenuItemClickListener(item -> {
+            int resMessage;
+            switch (item.getItemId()){
+                case R.id.action_favorites:
+                    resMessage = R.string.menu_favorites;
+                    break;
+                case R.id.action_profile:
+                    resMessage = R.string.menu_profile;
+                    break;
+                default:
+                    resMessage = R.string.menu_start;
+                    break;
+            }
+            Snackbar.make(containerMain, resMessage, Snackbar.LENGTH_LONG)
+                    .setAnchorView(fab)
+                    .show();
+
+            return true;
+        });
+
+        bottomAppBar.setNavigationOnClickListener(view1 -> {
+            Snackbar.make(containerMain, R.string.message_action_success, Snackbar.LENGTH_LONG)
+                    .setAnchorView(fab)
+                    .show();
+        });
 
         return view;
     }
