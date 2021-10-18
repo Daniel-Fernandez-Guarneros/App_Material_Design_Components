@@ -3,6 +3,7 @@ package com.alain.cursos.mdcomponents.fragments;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -11,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alain.cursos.mdcomponents.R;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -22,6 +27,14 @@ public class AppBarBottomFragment extends DialogFragment {
     public static final String TAG = "AppBarBottomFragment";
 
     Unbinder mUnbinder;
+    private boolean isCentered;
+
+    @BindView(R.id.bottom_app_bar)
+    BottomAppBar bottomAppBar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.containerMain)
+    CoordinatorLayout containerMain;
 
     public AppBarBottomFragment() {
         // Required empty public constructor
@@ -41,7 +54,6 @@ public class AppBarBottomFragment extends DialogFragment {
         mUnbinder = ButterKnife.bind(this, view);
 
 
-
         return view;
     }
 
@@ -49,5 +61,15 @@ public class AppBarBottomFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+    }
+
+    @OnClick(R.id.fab)
+    public void onViewClicked() {
+        if (isCentered){
+            bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
+        }else{
+            bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+        }
+        isCentered = !isCentered;
     }
 }
